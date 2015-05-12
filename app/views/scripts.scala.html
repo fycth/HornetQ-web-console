@@ -1,0 +1,54 @@
+@(queuename: String)
+
+</tbody>
+</table>
+</div>
+<div class="pure-u-1-3"><h3>Actions</h3>
+    <a class="button-error" onclick="RemoveMessages();">Remove All Messages</a><br><br><br>
+    <a class="pure-button pure-button-active" onclick="SendMessage();">Send Message</a><br>
+    <input type="text" placeholder="Write a message here" id="msg_input" style="width: 100%;"><br><br>
+    <a class="button-success" onclick="ConsumeMessage();">Consume Message</a>
+    <div id="msg_area" style="width:100%; height:250px; overflow: auto; margin:0 auto 0 auto; border:1px solid rgb(200,200,200); background: rgb(250,250,250);"></div>
+</div>
+</div>
+
+<script>
+    var msgPrintArea = document.getElementById("msg_area");
+    var url = window.location.href;
+    var arr = url.split("/");
+    var wurl = "ws://" + arr[2] + "/ws";
+    var ws = new WebSocket(wurl);
+    var qtype = false;
+    if (-1 != url.indexOf("topic")) qtype = true;
+    ws.onmessage = function(m) { printMsg(m.data); };
+
+    function SendMessage() {
+        var msg = document.getElementById("msg_input").value;
+        ws.send(JSON.stringify({type: "sendmessage",message: msg, name: "@queuename", qtype: qtype}));
+    }
+
+    function ConsumeMessage() {
+        ws.send(JSON.stringify({type: "consumemessage", name: "@queuename", qtype: qtype}));
+    }
+
+    function RemoveMessages() {
+        ws.send(JSON.stringify({type: "removemessages", name: "@queuename", qtype: qtype}));
+    }
+
+    function getTime() {
+        var d = new Date();
+        var c_h = d.getHours();
+        var c_m = d.getMinutes();
+        var c_s = d.getSeconds();
+        if (c_h < 10) { c_h = "0" + c_h; }
+        if (c_m < 10) { c_m = "0" + c_m; }
+        if (c_s < 10) { c_s = "0" + c_s; }
+        return c_h + ":" + c_m + ":" + c_s + ": ";
+    }
+
+    function printMsg(msg) {
+        var strMsg = "<font color=#468847>" + getTime() + msg + "</font><br/>";
+        msgPrintArea.innerHTML = msgPrintArea.innerHTML + strMsg;
+        msgPrintArea.scrollTop = msgPrintArea.scrollHeight;
+    };
+</script>

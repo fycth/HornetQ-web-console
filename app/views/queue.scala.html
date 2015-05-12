@@ -1,0 +1,31 @@
+@(queuename: String, node: Object, count: Integer)
+@import com.fasterxml.jackson.databind.node.ArrayNode
+
+@header()
+
+        <div class="pure-g">
+            <div class="pure-u-2-3">
+                <h3>Queue Consumers on @queuename (@count)</h3>
+                <table class="pure-table pure-table-horizontal sortable">
+                    <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Connection ID</th>
+                            <th>Creation Time</th>
+                            <th>Consumer ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+@for(n <- node.asInstanceOf[ArrayNode]) {
+    <tr>
+        <td>@n.get("sessionID")</td>
+        <td>@n.get("connectionID")</td>
+        <td>@global.Global.timestampTotime(n.get("creationTime").toString().toLong)</td>
+        <td>@n.get("consumerID")</td>
+    </tr>
+}
+
+@scripts(queuename)
+
+    </body>
+</html>

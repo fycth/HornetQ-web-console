@@ -1,0 +1,36 @@
+@(node: Object)
+@import com.fasterxml.jackson.databind.node.ArrayNode
+
+@header()
+
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h3>Consumers</h3>
+                <table class="pure-table pure-table-horizontal sortable">
+                    <thead>
+                        <tr>
+                            <th>Destination Type</th>
+                            <th>Consumer Name</th>
+                            <th>Creation Time</th>
+                            <th>Destination Name</th>
+                            <th>Durable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(n <- node.asInstanceOf[ArrayNode]) {
+                        <tr>
+                            <td>@n.get("destinationType")</td>
+                            <td>@n.get("queueName")</td>
+                            <td>@global.Global.timestampTotime(n.get("creationTime").toString().toLong)</td>
+                            <td>@n.get("destinationName")</td>
+                            <td>@n.get("durable")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        </div></div>
+    </body>
+</html>

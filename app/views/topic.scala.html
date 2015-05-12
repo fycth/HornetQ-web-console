@@ -1,0 +1,28 @@
+@(topicname: String, node: Object, count: Integer)
+@import com.fasterxml.jackson.databind.node.ArrayNode
+
+@header()
+
+        <div class="pure-g">
+            <div class="pure-u-2-3">
+                <h3>Topic Subscriptions on @topicname (@count)</h3>
+                <table class="pure-table pure-table-horizontal sortable">
+                    <thead>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>Messages</th>
+                            <th>Durable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+@for(n <- node.asInstanceOf[ArrayNode]) {
+    <tr>
+        <td>@n.get("clientID")</td>
+        <td>@n.get("messageCount")</td>
+        <td>@n.get("durable")</td>
+    </tr>
+}
+
+@scripts(topicname)
+    </body>
+</html>
