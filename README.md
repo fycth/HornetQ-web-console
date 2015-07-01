@@ -21,4 +21,13 @@ How to run
 ---
 ```$ activator run```
 
-Now navigate your web broser to http://localhost:9000
+Now navigate your web browser to http://localhost:9000
+
+Screenshots
+---
+
+![screenshot 1]
+(http://andrii.sergiienko.me/?go=@scale-image:screenshot1.png)
+
+![screenshot 2]
+(http://andrii.sergiienko.me/?go=@scale-image:screenshot2.png)
