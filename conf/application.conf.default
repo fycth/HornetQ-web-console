@@ -57,7 +57,7 @@ logger.play=INFO
 # Logger provided to your application:
 logger.application=DEBUG
 
-bus.port=""
-bus.host=""
-bus.user=""
-bus.pswd=""
+bus.port="hornetq-port"
+bus.host="hornetq-host"
+bus.user="hornetq-user"
+bus.pswd="hornetq-password"

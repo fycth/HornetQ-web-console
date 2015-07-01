@@ -17,12 +17,7 @@ import play.libs.Json
  * Created by Andrey on 5/8/2015.
  */
 
-class HornetQWrapper {
-  private val bus_port: String = Play.application().configuration().getString("bus.port")
-  private val bus_host: String = Play.application().configuration().getString("bus.host")
-  private val bus_user: String = Play.application().configuration().getString("bus.user")
-  private val bus_pswd: String = Play.application().configuration().getString("bus.pswd")
-
+class HornetQWrapper(bus_host: String, bus_port: String, bus_user: String, bus_pswd: String) {
   private val cp = new util.HashMap[String,Object]()
   cp.put(TransportConstants.PORT_PROP_NAME,bus_port)
   cp.put(TransportConstants.HOST_PROP_NAME,bus_host)
@@ -42,6 +37,9 @@ class HornetQWrapper {
   jmsConnection.start()
   //
 
+  def getHostname() : String = {
+    return bus_host
+  }
   def listQueues() : Map[String,Integer] = {
     val m: ClientMessage = cs.createMessage(false)
     ManagementHelper.putAttribute(m, ResourceNames.JMS_SERVER, "queueNames")

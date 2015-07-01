@@ -1,0 +1,32 @@
+@()
+
+<html>
+    <head>
+        <title>HornetQ web console</title>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
+    </head>
+    <body>
+
+    @helper.form(routes.Application.authenticate) {
+        <h1>Sign in using BSM administrator's credentials</h1>
+
+        <p>
+            <input type="text" name="hostname" placeholder="Hostname">
+        </p>
+        <p>
+            <input type="text" name="port" placeholder="Port">
+        </p>
+        <p>
+            <input type="text" name="username" placeholder="User">
+        </p>
+        <p>
+            <input type="password" name="password" placeholder="Password">
+        </p>
+        <p>
+            <button type="submit">Login</button>
+        </p>
+    }
+
+    </body>
+</html>

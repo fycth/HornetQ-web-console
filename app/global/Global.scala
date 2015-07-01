@@ -19,7 +19,6 @@ import akka.actor.Actor
 case class Start(out: Concurrent.Channel[String])
 
 class BusActor extends Actor {
-//  var i: Integer = 0
   var out = {
     val (enum, chan) = Concurrent.broadcast[String]
     chan
@@ -87,7 +86,7 @@ object Global extends GlobalSettings {
   }
 
   def getMachineName() : String = {
-    return Play.application().configuration().getString("bus.host")
+    return wrapper.getHostname()
   }
 
   def getBusDetails() : Map[String,Object] = {
@@ -107,14 +106,20 @@ object Global extends GlobalSettings {
     simpleDateFormat.format(new Timestamp(s))
   }
 
+  def makeConnection(hostname: String, port: String, username: String, password: String): Boolean = {
+    try {
+      wrapper = new HornetQWrapper(hostname, port, username, password);
+      return true;
+    } catch {
+        case e: Exception => {
+            Logger.warn("An exception happened when connecting to the bus: " + e)
+            return false;
+        };
+    }
+  }
+
   override def onStart(app: Application) {
     Logger.info("Application has started")
-    try {
-      wrapper = new HornetQWrapper();
-    } catch {
-      case es: JMSSecurityException => Logger.error("JMS Security Exception when connecting to the bus: " + es);
-      case e: Exception => Logger.error("Unknown exception happened when connecting to the bus: " + e);
-    }
   }
 
   override def onStop(app: Application) {
