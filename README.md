@@ -13,7 +13,8 @@ You should have these tools installed:
 How to build
 ---
 ```$ cd <project_dir>
-$ activator clean compile```
+    $ activator clean compile
+```
 
 How to run
 ---
