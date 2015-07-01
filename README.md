@@ -1,17 +1,22 @@
-# HornetQ-web-console
-A simple HornetQ web console
+HornetQ-web-console
+===
+This is a very raw project that I made while playing with Scala (and Scala Play!). It is a web-tool that allows connecting to a HornetQ installation and do some kind of basic actions (like gathering some statistics, sending and receving messages).
 
-## Compile
-play compile
+Prerequisites
+---
+You should have these tools installed:
+* JDK - http://www.oracle.com/technetwork/java/index.html
+* SBT - http://www.scala-sbt.org
+* Scala - http://www.scala-lang.org
+* Typesafe Activator - http://www.typesafe.com/community/core-tools/activator-and-sbt
 
-## Copy default configuration file into production one
-cp conf/application.conf.default conf/application.conf
+How to build
+---
+```$ cd <project_dir>
+$ activator clean compile```
 
-## Edit configuration file and put port, hostname, username, password.
-vi conf/application.conf
+How to run
+---
+```$ activator run```
 
-## Start the web console
-bin/hornettool . -Dconfig.file=../conf/application.conf
-
-## Navigate to http://localhost:9000
-
+Now navigate your web broser to http://localhost:9000
